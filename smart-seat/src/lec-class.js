@@ -110,7 +110,7 @@ const LecClass = () => {
     if (!room || !selectedDate || !selectedHour || !endTime || !roomNum) return;
     setLoading(true);
     try {
-      const response = await axios.get('/api/bookings/getBookedSeats', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/getBookedSeats`, {
         params: {
           room,
           date: selectedDate,

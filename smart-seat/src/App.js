@@ -74,7 +74,7 @@ function App() {
 
   const updateExpiredBookings = async (userId) => {
     try {
-      await axios.post('/api/bookings/update-expired', { userId });
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/bookings/update-expired`, { userId });
     } catch (err) {
       console.error('Failed to update expired bookings:', err);
     }
@@ -86,7 +86,7 @@ function App() {
       const syncUserInfo = async () => {
         try {
           const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-          const response = await fetch('/api/users/me', {
+          const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me`, {
             headers: { 'user-id': currentUser.id }
           });
           const userData = await response.json();
@@ -106,7 +106,7 @@ function App() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (!currentUser) return;
     try {
-      const response = await axios.get('/api/bookings', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings`, {
         params: {
           userId: currentUser.id,
           status: 1
@@ -132,7 +132,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/api/auth/logout');
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/logout`);
     } catch (err) {
       console.error('Logout error:', err);
     } finally {

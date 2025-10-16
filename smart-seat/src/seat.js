@@ -88,7 +88,7 @@ const Seat = () => {
     if (!room || !selectedDate || !selectedHour || !endTime) return;
     setLoading(true);
     try {
-      const response = await axios.get('/api/bookings/getBookedSeats', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/getBookedSeats`, {
         params: {
           room,
           date: selectedDate,
@@ -139,7 +139,7 @@ const Seat = () => {
     const room = getRoomIdentifier();
     try {
       for (const seat_number of selectedSeats) {
-        await axios.post('/api/bookings', {
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/bookings`, {
           book_id: userInfo.id,
           book_name: userInfo.name,
           room,

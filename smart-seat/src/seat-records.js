@@ -17,12 +17,12 @@ const SeatRecords = () => {
         if (!currentUser.id) throw new Error('User information missing, please log in again');
         
         const userId = currentUser.id;
-        const userResponse = await axios.get('/api/users/me', {
+        const userResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/me`, {
           headers: { 'user-id': userId }
         });
         setUserInfo(userResponse.data);
         
-        const bookingsResponse = await axios.get(`/api/bookings?userId=${userId}`);
+        const bookingsResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings?userId=${userId}`);
         const sortedBookings = bookingsResponse.data.sort((a, b) => {
           const timeA = new Date(`${a.date} ${a.start_time}`).getTime();
           const timeB = new Date(`${b.date} ${b.start_time}`).getTime();
@@ -51,7 +51,7 @@ const SeatRecords = () => {
   const cancelBooking = async (bookingId) => {
     if (window.confirm('Are you sure you want to cancel this booking?')) {
       try {
-        await axios.put(`/api/bookings/${bookingId}/cancel`);
+        await axios.put(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/cancel`);
         setBookings(bookings.map(booking => 
           booking.id === bookingId ? { ...booking, status: 2 } : booking
         ));

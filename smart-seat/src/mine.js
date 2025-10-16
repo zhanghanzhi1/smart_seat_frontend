@@ -68,7 +68,7 @@ const Mine = () => {
         return;
       }
       try {
-        const response = await axios.get('/api/users/me', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/me`, {
           headers: { 'user-id': currentUser.id }
         });
         const user = response.data;
@@ -102,7 +102,7 @@ const Mine = () => {
     const fetchUserBookings = async () => {
       if (!userData.id) return;
       try {
-        const response = await axios.get('/api/bookings', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings`, {
           params: { userId: userData.id }
         });
         const userBookings = response.data;
@@ -199,7 +199,7 @@ const Mine = () => {
         requestBody.oldPassword = oldPassword;
         requestBody.newPassword = newPassword;
       }
-      const response = await axios.put(`/api/users/${userData.id}`, requestBody);
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/users/${userData.id}`, requestBody);
       setUserData(prev => ({
         ...prev,
         email: response.data.user.email,

@@ -35,7 +35,7 @@ const SignIn = () => {
     }
     
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -47,7 +47,7 @@ const SignIn = () => {
         if (rememberMe) localStorage.setItem('savedEmail', email);
         
         try {
-          const userResponse = await fetch('/api/users/me', {
+          const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me`, {
             headers: { 'user-id': data.user.id }
           });
           const userData = await userResponse.json();
